@@ -29,15 +29,14 @@ jobs:
           pip install "Cython<3.0.0"
           pip install buildozer
 
-      - name: Auto Accept Android Licenses
+      - name: Build APK with Auto Accept Licenses
         run: |
-          mkdir -p ~/.android
-          touch ~/.android/repositories.cfg
-          yes | android-sdk-tools/tools/bin/sdkmanager --licenses || true
-
-      - name: Build APK with Buildozer
-        run: |
-          buildozer android debug
+          buildozer android debug <<EOF
+          y
+          y
+          y
+          y
+          EOF
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
